@@ -1,4 +1,5 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
+import { DisplayBooksPreview } from "./displayPreviewsConstructor.js";
 
 //ALL THE NECESSARY ELEMENTS FROM THE DOM
 const booksListDiv = document.querySelector("[data-list-items]");
