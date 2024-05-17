@@ -1,4 +1,4 @@
-export class DisplayBooksPreview extends HTMLElement {
+class DisplayBooksPreview extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" }); //using shadow DOM to encaps. structure and style
@@ -101,5 +101,7 @@ export class DisplayBooksPreview extends HTMLElement {
     this.shadowRoot.appendChild(pageLoadFrag);
   }
 }
+
+export default DisplayBooksPreview;
 
 customElements.define("book-previews", DisplayBooksPreview);

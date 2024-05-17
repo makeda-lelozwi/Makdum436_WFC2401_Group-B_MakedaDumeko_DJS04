@@ -1,5 +1,4 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
-import { DisplayBooksPreview } from "./displayPreviewsConstructor.js";
 
 //ALL THE NECESSARY ELEMENTS FROM THE DOM
 const booksListDiv = document.querySelector("[data-list-items]");
@@ -32,38 +31,35 @@ let booksArray = books;
 from that array, and adds them them to the doc. frag. as a collection of clickable previews (showing the cover, title and author(s) of the book).
 Pushes the doc. frag. to the DOM by appending to a pre-existing div in the HTML (with the name "data-list-items").*/
 
-const displayBooksPreview = new DisplayBooksPreview();
+const displayBooksPreviews = (array, authors) => {
+  const pageLoadFrag = document.createDocumentFragment();
 
-displayBooksPreview.connectedCallback();
-// const displayBooksPreviews = (array, authors) => {
-//   const pageLoadFrag = document.createDocumentFragment();
+  for (const { author, id, image, title } of array.slice(0, BOOKS_PER_PAGE)) {
+    const bookPreviewBtn = document.createElement("button");
+    bookPreviewBtn.classList = "preview";
+    bookPreviewBtn.setAttribute("data-preview", id); //creates new custom attribute called "data-preview" and sets the value to be the book's id
 
-//   for (const { author, id, image, title } of array.slice(0, BOOKS_PER_PAGE)) {
-//     const bookPreviewBtn = document.createElement("button");
-//     bookPreviewBtn.classList = "preview";
-//     bookPreviewBtn.setAttribute("data-preview", id); //creates new custom attribute called "data-preview" and sets the value to be the book's id
+    bookPreviewBtn.innerHTML = `
+        <img
+            class="preview__image"
+            src="${image}"
+        />
+        
+        <div class="preview__info"> 
+            <h3 class="preview__title">${title}</h3>
+            <div class="preview__author">${authors[author]}</div>
+        </div>
+    `;
 
-//     bookPreviewBtn.innerHTML = `
-//         <img
-//             class="preview__image"
-//             src="${image}"
-//         />
+    pageLoadFrag.appendChild(bookPreviewBtn);
+  }
 
-//         <div class="preview__info">
-//             <h3 class="preview__title">${title}</h3>
-//             <div class="preview__author">${authors[author]}</div>
-//         </div>
-//     `;
+  booksListDiv.appendChild(pageLoadFrag);
 
-//     pageLoadFrag.appendChild(bookPreviewBtn);
-//   }
+  return booksListDiv;
+};
 
-//   booksListDiv.appendChild(pageLoadFrag);
-
-//   return booksListDiv;
-// };
-
-// displayBooksPreviews(booksArray, authors);
+displayBooksPreviews(booksArray, authors);
 
 //CREATING THE LIST OF ALL GENRES IN THE SEARCH MODAL
 /*doc. frag. for the genres drop-down found in the search modal
@@ -216,7 +212,7 @@ bookSearchForm.addEventListener("submit", (event) => {
   booksListDiv.innerHTML = ""; //makes the page that's supposed to show all the book previews empty
 
   //DISPLAYING THE FILTERED BOOKS TO THE DOM
-  displayBooksPreview.connectedCallback();
+  displayBooksPreviews(filteredBooksArray, authors);
 
   //same logic for the "show more" button
   updateShowMoreBtn();
