@@ -1,7 +1,5 @@
 # DJS04 Project Brief: Book Connect - Web Components
 
-![alt text](image.png)
-
 ### Objective
 
 Transform the book preview functionality of the "Book Connect" application into a fully operational Web Component. Additionally, evaluate and potentially convert other parts of the application into Web Components to enhance modularity and reusability.
