@@ -12,7 +12,7 @@ Transform the book preview functionality of the "Book Connect" application into 
 
 ### My Tasks
 
-## Completed
+#### Completed
 
 1. **Understand the Existing Codebase**
 
@@ -23,7 +23,7 @@ Transform the book preview functionality of the "Book Connect" application into 
    - I began the process of creating a self-contained component, with its own HTML, CSS, and JavaScript.
    - I tested the component to ensure it is connected to the DOM with an event listener that changes the color of the preview button and the font color (lines 81 - 89).
 
-## In Progress
+#### In Progress
 
 1. **Identify and Convert Other Components**:
    - Analyse the application to identify other potential components for conversion.
