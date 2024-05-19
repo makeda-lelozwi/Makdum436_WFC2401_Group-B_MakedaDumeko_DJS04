@@ -1,4 +1,5 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
+//import { DisplayBooksPreview } from "./displayPreviewsConstructor.js";
 
 //ALL THE NECESSARY ELEMENTS FROM THE DOM
 const booksListDiv = document.querySelector("[data-list-items]");
@@ -27,56 +28,22 @@ let page = 1;
 let booksArray = books;
 
 //DISPLAYING THE FIRST 36 BOOKS TO DOM
-/* Use document fragments to periodically push elements/changes to the DOM. Iterates over the books array, takes out the first 36 items (books) 
-from that array, and adds them them to the doc. frag. as a collection of clickable previews (showing the cover, title and author(s) of the book).
-Pushes the doc. frag. to the DOM by appending to a pre-existing div in the HTML (with the name "data-list-items").*/
 
-const displayBooksPreviews = (array, authors) => {
-  const pageLoadFrag = document.createDocumentFragment();
-
-  for (const { author, id, image, title } of array.slice(0, BOOKS_PER_PAGE)) {
-    const bookPreviewBtn = document.createElement("button");
-    bookPreviewBtn.classList = "preview";
-    bookPreviewBtn.setAttribute("data-preview", id); //creates new custom attribute called "data-preview" and sets the value to be the book's id
-
-    bookPreviewBtn.innerHTML = `
-        <img
-            class="preview__image"
-            src="${image}"
-        />
-        
-        <div class="preview__info"> 
-            <h3 class="preview__title">${title}</h3>
-            <div class="preview__author">${authors[author]}</div>
-        </div>
-    `;
-
-    pageLoadFrag.appendChild(bookPreviewBtn);
-  }
-
-  booksListDiv.appendChild(pageLoadFrag);
-
-  return booksListDiv;
-};
-
-displayBooksPreviews(booksArray, authors);
+//const displayBooksPreviews = new DisplayBooksPreview();
+//displayBooksPreviews.connectedCallback(books, authors);
 
 //CREATING THE LIST OF ALL GENRES IN THE SEARCH MODAL
-/*doc. frag. for the genres drop-down found in the search modal
-ensures that the first option in the select is "all genres"
-loops through the genres array and creates an <option> for each genre and appends all the genre options to the genreHTML doc. fragment
-pushes the genreHTML doc. fragment to the DOM via the div named data-search-genres*/
 
 const createSelect = (array, name, dropdown) => {
   const selectFrag = document.createDocumentFragment();
 
-  const firstOption = document.createElement("option"); //it would be semantically correct to put this inside a <select></select>
+  const firstOption = document.createElement("option");
   firstOption.value = "any";
   firstOption.innerText = `All ${name}s`;
   selectFrag.appendChild(firstOption);
 
   for (const [id, name] of Object.entries(array)) {
-    const option = document.createElement("option"); //confusion: "element" was already created in line 15
+    const option = document.createElement("option");
     option.value = id;
     option.innerText = name;
     selectFrag.appendChild(option);
@@ -112,7 +79,6 @@ if (
 }
 
 //LOGIC FOR ENABLING THE SHOW MORE BUTTON
-//if there are no more books to be displayed then the button is set to disabled
 const updateShowMoreBtn = () => {
   if (booksArray.length - page * BOOKS_PER_PAGE < 1) {
     showMoreBtn.disabled = true;
@@ -129,8 +95,6 @@ const updateShowMoreBtn = () => {
 };
 
 updateShowMoreBtn();
-
-//as the #books displays /, the number in the brackets should go down
 
 //EVENT LISTENERS
 //"Cancel" to close the search modal
@@ -176,9 +140,6 @@ bookSearchForm.addEventListener("submit", (event) => {
   const filters = Object.fromEntries(formData); //converts form data into an object
   const filteredBooksArray = []; //empty array to store filtered books
 
-  /*This for loop checks each book in the books array for any book that matches the genre that was selected by the user or for any books whose
-    title matches the one typed in by the user. 
-  */
   for (const book of books) {
     let genreMatch = filters.genre === "any";
 
@@ -202,17 +163,16 @@ bookSearchForm.addEventListener("submit", (event) => {
   page = 1;
   booksArray = filteredBooksArray;
 
-  //Error handling for if there is no book that matches the search/filter, then the message already typed in the HTML will show
   if (filteredBooksArray.length < 1) {
     noResultsMessage.classList.add("list__message_show");
   } else {
     noResultsMessage.classList.remove("list__message_show");
   }
 
-  booksListDiv.innerHTML = ""; //makes the page that's supposed to show all the book previews empty
+  booksListDiv.innerHTML = "";
 
   //DISPLAYING THE FILTERED BOOKS TO THE DOM
-  displayBooksPreviews(filteredBooksArray, authors);
+  //displayBooksPreviews(filteredBooksArray, authors);
 
   //same logic for the "show more" button
   updateShowMoreBtn();
@@ -253,44 +213,34 @@ showMoreBtn.addEventListener("click", () => {
 });
 
 //EVENT LISTENER FOR DISPLAYING BOOK INFO WHEN CLICKING ON ITS PREVIEW
-booksListDiv.addEventListener("click", (event) => {
-  const pathArray = Array.from(event.path || event.composedPath()); //retrieves clicked element's path
-  let active = null;
+// booksListDiv.addEventListener("click", (event) => {
+//   const pathArray = Array.from(event.path || event.composedPath()); //retrieves clicked element's path
+//   let active = null;
 
-  /* Iterates through each element in the path array and checks if each element has the attribute of "dataset.preview".
-    If it finds an element with the attribute, it looks for the corresponding book in the "books" array based on the id stored in the dataset.
-    Once it finds the corresponding book, it updates the UI to display details of the clicked book:
-    - reveals a modal
-    - sets the book's cover as the img tag's source
-    - updates the titles with the book's title and author (taking the name from the "authors" array)
-    also sets the publication date
-    - updates the description with the book's description    
-  */
+//   for (const node of pathArray) {
+//     if (active) break;
 
-  for (const node of pathArray) {
-    if (active) break;
+//     if (node?.dataset?.preview) {
+//       let result = null;
 
-    if (node?.dataset?.preview) {
-      let result = null;
+//       for (const singleBook of books) {
+//         if (result) break;
+//         if (singleBook.id === node?.dataset?.preview) result = singleBook;
+//       }
 
-      for (const singleBook of books) {
-        if (result) break;
-        if (singleBook.id === node?.dataset?.preview) result = singleBook;
-      }
+//       active = result;
+//     }
+//   }
 
-      active = result;
-    }
-  }
-
-  if (active) {
-    moreInfoOverlay.open = true;
-    document.querySelector("[data-list-blur]").src = active.image;
-    document.querySelector("[data-list-image]").src = active.image;
-    document.querySelector("[data-list-title]").innerText = active.title;
-    document.querySelector("[data-list-subtitle]").innerText = `${
-      authors[active.author]
-    } (${new Date(active.published).getFullYear()})`;
-    document.querySelector("[data-list-description]").innerText =
-      active.description;
-  }
-});
+//   if (active) {
+//     moreInfoOverlay.open = true;
+//     document.querySelector("[data-list-blur]").src = active.image;
+//     document.querySelector("[data-list-image]").src = active.image;
+//     document.querySelector("[data-list-title]").innerText = active.title;
+//     document.querySelector("[data-list-subtitle]").innerText = `${
+//       authors[active.author]
+//     } (${new Date(active.published).getFullYear()})`;
+//     document.querySelector("[data-list-description]").innerText =
+//       active.description;
+//   }
+// });

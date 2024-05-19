@@ -1,32 +1,40 @@
-# DJS03 Project Brief: Book Connect - Abstractions
-
-The focus of this project is to enhance the code's maintainability, extendibility, and readability by applying concepts of objects and functions for abstraction. To complete this coding challenge I had to apply higher-level concepts like documentation, Styleguides, and abstraction principles.
+# DJS04 Project Brief: Book Connect - Web Components
 
 ![alt text](image.png)
 
-#### Goals
+### Objective
 
-- **Refactor Existing Code**: Analyze and refactor the given JavaScript and HTML code to improve its structure using objects and functions.
-- **Implement Abstraction**: Use abstraction to hide the complex reality while exposing only the necessary parts. This involves creating more generic functions that can perform tasks in a more flexible way.
-- **Documentation**: Write clear comments and documentation for the new code structure to explain the purpose and functionality of code blocks, functions, and objects.
-- **Follow Styleguides**: Adhere to established coding conventions and Styleguides to ensure code readability and maintainability.
+Transform the book preview functionality of the "Book Connect" application into a fully operational Web Component. Additionally, evaluate and potentially convert other parts of the application into Web Components to enhance modularity and reusability.
 
-#### Tasks
+### Goals
 
-1. **Code Analysis**: Start by understanding the current implementation of the "Book Connect" application, including its HTML structure and JavaScript functionality.
+- **Convert Book Preview to Web Component**: The main focus is to encapsulate the book preview feature into a Web Component, making it reusable and independent.
+- **Assess Other Components**: Identify other elements within the "Book Connect" app that could benefit from being converted into Web Components.
+- **Maintain Functionality**: Ensure that the application retains all its current functionalities after refactoring.
 
-2. **Implement Abstraction**:
+### My Tasks
 
-   - **Objects**: Define objects to represent key elements of the application, such as books, authors, and genres. Utilize the provided data (e.g., `authors`, `genres`, `books`) to populate these objects.
+## Completed
 
-   - **Functions**: Created functions that handle repetitive tasks, such as rendering the book list, handling user interactions, and applying filters:
+1. **Understand the Existing Codebase**
 
-   - Lines 31 - 44 and 46 - 59: A more generic function (createSelect) can be used to create drop-down menus for authors and genres
-   - Lines 9 - 29 and 180 - 203: A more generic function (displayBooksPreview) can be used to display book previews on the DOM.
-   - Lines 65 - 71 and 121 - 131: The setTheme() function was used to in both instances to toggle light and dark themes.
-   - Lines 74 - 86 and 206 - 215: The updateShowMoreBtn() function was used to display the show more button on the page
+2. **Create a Web Component for Book Preview**:
 
-3. **Adherence to Styleguides**: Renamed variables so that my code follows JavaScript and HTML coding standards and best practices for readability and maintainability.
+   - After several attempts I managed to implement a very simple encapsulation of the book previews function. The web component (found in the displayPreviewsConstructor.js file) shows the title, author, and image of the first book in the "books" array found in the data.js file.
 
-   - Line 6: replaced "starting" with "booksListDiv"
-   - Lines 2 - 18: Initialized variables used for DOM manipulation for easier readability (e.g. "showMoreBtn" replaces "document.querySelector("[data-list-button]")". )
+   - I began the process of creating a self-contained component, with its own HTML, CSS, and JavaScript.
+   - I tested the component to ensure it is connected to the DOM with an event listener that changes the color of the preview button and the font color (lines 81 - 89).
+
+## In Progress
+
+1. **Identify and Convert Other Components**:
+   - Analyse the application to identify other potential components for conversion.
+   - Prioritise components based on their reusability and importance to the app.
+   - Convert the chosen elements into Web Components.
+2. **Testing and Integration**:
+   - Rigorously test the new components individually and within the context of the application.
+   - Pay special attention to interactions between components and the overall user experience.
+3. **Documentation**:
+   - Document the process of creating the Web Components.
+   - Include any challenges faced and how they were overcome.
+   - Provide a clear guide on how the components should be used within the app.

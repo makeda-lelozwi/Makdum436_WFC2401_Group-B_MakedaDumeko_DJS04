@@ -25,7 +25,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap"
       rel="stylesheet"
     />
-
+    <script type="module" src="displayPreviewsConstructor.js"></script>
     <script type="module" src="./scripts.js"></script>
     <script type="module" src="./data.js"></script>
   </head>
@@ -91,7 +91,11 @@
     </header>
 
     <main class="list">
-      <div class="list__items" data-list-items></div>
+      <book-previews cover="https://images-na.ssl-images-amazon.com/images/S/c…d.photo.goodreads.com/books/1348495562i/42891.jpg">
+        <div slot="title">Title</div>
+        <div slot="author">Author</div>
+      </book-previews>
+      
       <div class="list__message" data-list-message>No results found. Your filters might be too narrow.</div>
       <button class="list__button" data-list-button></button>
     </main>
