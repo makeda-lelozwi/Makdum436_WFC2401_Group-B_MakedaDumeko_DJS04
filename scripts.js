@@ -32,6 +32,27 @@ let booksArray = books;
 //const displayBooksPreviews = new DisplayBooksPreview();
 //displayBooksPreviews.connectedCallback(books, authors);
 
+const displayBooksPreviews = (array, authors) => {
+  const pageLoadFrag = document.createDocumentFragment();
+  const bookPreviewBtn = document.getElementById("book-preview-btn");
+
+  for (const { author, image, title } of array.slice(0, BOOKS_PER_PAGE)) {
+    bookPreviewBtn.innerHTML = `
+    <img class="preview__image" slot="image" src="${image}" alt=""/>
+    <div id="title-div" slot="title">${title}</div>
+        <div id="author-div" slot="author">${authors[author]}</div>
+    `;
+
+    pageLoadFrag.appendChild(bookPreviewBtn);
+  }
+
+  booksListDiv.appendChild(pageLoadFrag);
+
+  return booksListDiv;
+};
+
+displayBooksPreviews(booksArray, authors);
+
 //CREATING THE LIST OF ALL GENRES IN THE SEARCH MODAL
 
 const createSelect = (array, name, dropdown) => {

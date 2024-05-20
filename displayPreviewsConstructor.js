@@ -1,5 +1,5 @@
-const template = document.createElement("template");
-template.innerHTML = `
+const bookPreviewBtn = document.createElement("template");
+bookPreviewBtn.innerHTML = `
 <style>
 .preview {
   border-width: 0;
@@ -59,9 +59,9 @@ template.innerHTML = `
     }
 </style>
 <button class="preview">
-  <img class="preview__image"/>
+    <img class="preview__image" slot="image">
   <div class="preview__info">
-     <h3 class="preview__title"><slot name="title"/>></h3>
+     <h3 class="preview__title"><slot name="title"/></h3>
      <div class="preview__author"><slot name="author"/></div>
   </div>
 </button>
@@ -74,8 +74,7 @@ class DisplayBooksPreview extends HTMLElement {
     this.showModal = false;
 
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
-    this.shadowRoot.querySelector("img").src = this.getAttribute("cover");
+    this.shadowRoot.appendChild(bookPreviewBtn.content.cloneNode(true));
   }
 
   openModal() {
