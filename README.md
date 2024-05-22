@@ -18,21 +18,37 @@ Transform the book preview functionality of the "Book Connect" application into 
 
 2. **Create a Web Component for Book Preview**:
 
-   - After several attempts I managed to implement a very simple encapsulation of the book previews function. The web component (found in the displayPreviewsConstructor.js file) shows the title, author, and image of the first book in the "books" array found in the data.js file.
+  - After several attempts I managed to implement a very simple encapsulation of the book previews function. The web component (found in the displayPreviewsConstructor.js file) shows the title, author, and image of the first book in the "books" array found in the data.js file.
 
-   - I began the process of creating a self-contained component, with its own HTML, CSS, and JavaScript.
-   - I tested the component to ensure it is connected to the DOM with an event listener that changes the color of the preview button and the font color (lines 81 - 89).
+  - I began the process of creating a self-contained component, with its own HTML, CSS, and JavaScript.
+  - I tested the component to ensure it is connected to the DOM with an event listener that changes the color of the preview button and the font color (lines 81 - 89).
+
+3. **Documentation**: 
+##### Process
+
+
+##### Stuggles
+
+1. **Displaying multiple books**:
+  - I was able to display only one book onto the web-page ("Northanger Abbey" by Jane Austen).
+
+2. **Matching styling from DJS03**: 
+  - The book I was able to display does not have the same styling as the previous challenge. 
+
+3. **Opening the description overlay**: 
+  - When I click on the book preview it does not open the overlay that gives more details about the book. 
+
 
 #### In Progress
 
 1. **Identify and Convert Other Components**:
-   - Analyse the application to identify other potential components for conversion.
-   - Prioritise components based on their reusability and importance to the app.
-   - Convert the chosen elements into Web Components.
+  - Analyse the application to identify other potential components for conversion.
+  - Prioritise components based on their reusability and importance to the app.
+  - Convert the chosen elements into Web Components.
 2. **Testing and Integration**:
-   - Rigorously test the new components individually and within the context of the application.
-   - Pay special attention to interactions between components and the overall user experience.
+  - Rigorously test the new components individually and within the context of the application.
+  - Pay special attention to interactions between components and the overall user experience.
 3. **Documentation**:
-   - Document the process of creating the Web Components.
-   - Include any challenges faced and how they were overcome.
-   - Provide a clear guide on how the components should be used within the app.
+  - Document the process of creating the Web Components.
+  - Include any challenges faced and how they were overcome.
+  - Provide a clear guide on how the components should be used within the app.

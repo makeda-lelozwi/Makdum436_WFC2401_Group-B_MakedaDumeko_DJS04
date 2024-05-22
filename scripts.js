@@ -1,5 +1,5 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
-//import { DisplayBooksPreview } from "./displayPreviewsConstructor.js";
+import { bookPreviewBtn } from "./displayPreviewsConstructor.js";
 
 //ALL THE NECESSARY ELEMENTS FROM THE DOM
 const booksListDiv = document.querySelector("[data-list-items]");
@@ -29,18 +29,17 @@ let booksArray = books;
 
 //DISPLAYING THE FIRST 36 BOOKS TO DOM
 
-//const displayBooksPreviews = new DisplayBooksPreview();
-//displayBooksPreviews.connectedCallback(books, authors);
 
 const displayBooksPreviews = (array, authors) => {
   const pageLoadFrag = document.createDocumentFragment();
-  const bookPreviewBtn = document.getElementById("book-preview-btn");
+  const bookPreviewBtn = document.createElement("book-previews");
+  bookPreviewBtn.classList = "preview";
 
   for (const { author, image, title } of array.slice(0, BOOKS_PER_PAGE)) {
     bookPreviewBtn.innerHTML = `
     <img class="preview__image" slot="image" src="${image}" alt=""/>
-    <div id="title-div" slot="title">${title}</div>
-        <div id="author-div" slot="author">${authors[author]}</div>
+    <div id="title-div" class="preview__title" slot="title">${title}</div>
+        <div id="author-div" class="preview__author" slot="author">${authors[author]}</div>
     `;
 
     pageLoadFrag.appendChild(bookPreviewBtn);
